@@ -24,13 +24,6 @@
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
-            <Label x:Name="lblExplicacion"
-               Text="Rangos del IMC: <18.5 = Bajo peso | 18.5–24.9 = Normal | 25–29.9 = Sobrepeso | ≥30 = Obesidad"
-               TextColor="Gray"
-               FontSize="12"
-               HorizontalOptions="Center"
-               Margin="0,10,0,0"/>  
-
             <Button
                 x:Name="CounterBtn"
                 Text="Click me" 

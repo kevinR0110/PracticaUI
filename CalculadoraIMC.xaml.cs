@@ -6,52 +6,64 @@ public partial class CalculadoraIMC : ContentPage
     {
         InitializeComponent();
     }
-    //Prueba
-    private async void Button_Clicked(object sender, EventArgs e)
+
+    //"async" porque DisplayAlert espera que el usuario toque el OK
+    private async void Button_clicked(object sender, EventArgs e)
     {
-        // Validar peso y altura > 0
-        if (!double.TryParse(txtPeso.Text, out double peso) || peso <= 0 ||
+        //TryParse intenta convertir el texto a numero
+        //Tambien validamos que la altura sea mayor que 0 (evita dividir entre cero)
+        if (!double.TryParse(txtPeso.Text, out double peso) ||
             !double.TryParse(txtAltura.Text, out double altura) || altura <= 0)
         {
-            await DisplayAlert("ERROR...", "Por Favor, Ingrese Valores Numéricos Válidos (mayores que 0)...", "OK");
+            await DisplayAlert("Error", "Por favor ingrese valores numericos validos.", "OK");
             return;
-        }
 
-        double IMC = peso / (altura * altura);
-        lblValorIMC.Text = IMC.ToString("F1");
+        }
+        //Formula del IMC: Peso/ (Altura^2)
+        double imc = peso / (altura * altura);
 
-        if (IMC < 18.5)
+        //Formato con 1 decimal (ejemplo 22.9)
+        lblValorIMC.Text = imc.ToString("F1");
+
+        //Clasificamos el imc y cambiamos texto y colores segun el rango
+        if (imc < 18.5)
         {
-            lblDiagnostico.Text = "BAJO PESO.";
-            lblDiagnostico.TextColor = Colors.DarkBlue;
-            brResultado.BackgroundColor = Colors.LightBlue;
-            brResultado.Stroke = Colors.Blue;
-            lblRango.Text = "Menor a 18.5";
-        }
-        else if (IMC <= 24.9)
-        {
-            lblDiagnostico.Text = "Peso Normal.";
-            lblDiagnostico.TextColor = Colors.DarkCyan;
-            brResultado.BackgroundColor = Colors.LightGreen;
-            brResultado.Stroke = Colors.Cyan;
-            lblRango.Text = "Entre 18.5 y 24.9";
-        }
-        else if (IMC <= 29.9)
-        {
-            lblDiagnostico.Text = "Sobrepeso.";
+            lblDiagnostico.Text = "Bajo Peso";
             lblDiagnostico.TextColor = Colors.DarkOrange;
-            brResultado.BackgroundColor = Colors.LightYellow;
+
+            //color.FromArgb convierte un codigo hexadecimal en un color 
+            brResultado.BackgroundColor = Color.FromArgb("0B8711");
             brResultado.Stroke = Colors.Orange;
-            lblRango.Text = "Entre 25.0 y 29.9";
+        }
+        else if (imc <= 24.9)
+        {
+            lblDiagnostico.Text = "Peso Normal";
+            lblDiagnostico.TextColor = Colors.DarkCyan;
+
+            //color.FromArgb convierte un codigo hexadecimal en un color 
+            brResultado.BackgroundColor = Color.FromArgb("0B9011");
+            brResultado.Stroke = Colors.Blue;
+        }
+        else if (imc <= 29.9)
+        {
+            lblDiagnostico.Text = "Sobrepeso";
+            lblDiagnostico.TextColor = Colors.DarkMagenta;
+
+            //color.FromArgb convierte un codigo hexadecimal en un color 
+            brResultado.BackgroundColor = Color.FromArgb("0B7011");
+            brResultado.Stroke = Colors.Magenta;
         }
         else
         {
-            lblDiagnostico.Text = "Obesidad.";
+            lblDiagnostico.Text = "Obesidad";
             lblDiagnostico.TextColor = Colors.DarkRed;
-            brResultado.BackgroundColor = Colors.LightPink;
+
+            //color.FromArgb convierte un codigo hexadecimal en un color 
+            brResultado.BackgroundColor = Color.FromArgb("0B4011");
             brResultado.Stroke = Colors.Red;
-            lblRango.Text = "30.0 o más";
         }
+
+        //Por ultimo, muestra la tarjeta que estaba oculta 
         brResultado.IsVisible = true;
-    }
+     }
 }

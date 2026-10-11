@@ -31,7 +31,7 @@
 
             <!--Boton: Clicked="...." indica que metodo de C# se ejecuta al tocarlo-->
             <Button Text="Calcular IMC" BackgroundColor="#0ED9F0" TextColor="White" FontAttributes="Bold" CornerRadius="8"
-                    Clicked="Button_Clicked" />
+                    Clicked="Button_clicked" />
 
             <!--Tarjeta de Resultado: IsVisible="False" la oculta hasta que se calcule-->
             <Border x:Name="brResultado" Stroke="Black" StrokeShape="RoundRectangle 12" Padding="20" 
